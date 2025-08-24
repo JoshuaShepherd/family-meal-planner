@@ -10,6 +10,7 @@ type View = 'selector' | 'planner' | 'shopping';
 
 export default function Home() {
   const [currentView, setCurrentView] = useState<View>('selector');
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <main className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-blue-50">
@@ -23,7 +24,8 @@ export default function Home() {
               </div>
             </div>
             
-            <nav className="flex space-x-1">
+            {/* Desktop Navigation */}
+            <nav className="hidden md:flex space-x-1">
               <Button
                 variant={currentView === 'selector' ? 'default' : 'ghost'}
                 onClick={() => setCurrentView('selector')}
@@ -49,6 +51,68 @@ export default function Home() {
                 variant="outline"
                 onClick={() => window.open('/cleaning', '_blank')}
                 className="relative bg-gradient-to-r from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 border-purple-300"
+              >
+                🧹 Cleaning Sprint
+              </Button>
+            </nav>
+
+            {/* Mobile menu button */}
+            <div className="md:hidden">
+              <Button
+                variant="ghost"
+                size="sm"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2"
+              >
+                <div className="w-6 h-6 flex flex-col justify-center items-center">
+                  <span className={`bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${mobileMenuOpen ? 'rotate-45 translate-y-1' : '-translate-y-0.5'}`}></span>
+                  <span className={`bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm my-0.5 ${mobileMenuOpen ? 'opacity-0' : 'opacity-100'}`}></span>
+                  <span className={`bg-current block transition-all duration-300 ease-out h-0.5 w-6 rounded-sm ${mobileMenuOpen ? '-rotate-45 -translate-y-1' : 'translate-y-0.5'}`}></span>
+                </div>
+              </Button>
+            </div>
+          </div>
+
+          {/* Mobile Navigation Menu */}
+          <div className={`md:hidden transition-all duration-300 ease-in-out ${mobileMenuOpen ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0 overflow-hidden'}`}>
+            <nav className="px-2 pt-2 pb-3 space-y-1 bg-white/95 backdrop-blur-lg rounded-lg mt-2 border border-gray-200/50 shadow-lg">
+              <Button
+                variant={currentView === 'selector' ? 'default' : 'ghost'}
+                onClick={() => {
+                  setCurrentView('selector');
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-left"
+              >
+                🎯 Meal Selector
+              </Button>
+              <Button
+                variant={currentView === 'planner' ? 'default' : 'ghost'}
+                onClick={() => {
+                  setCurrentView('planner');
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-left"
+              >
+                📅 Meal Planner
+              </Button>
+              <Button
+                variant={currentView === 'shopping' ? 'default' : 'ghost'}
+                onClick={() => {
+                  setCurrentView('shopping');
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-left"
+              >
+                🛒 Shopping List
+              </Button>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  window.open('/cleaning', '_blank');
+                  setMobileMenuOpen(false);
+                }}
+                className="w-full justify-start text-left bg-gradient-to-r from-purple-100 to-pink-100 hover:from-purple-200 hover:to-pink-200 border-purple-300"
               >
                 🧹 Cleaning Sprint
               </Button>
