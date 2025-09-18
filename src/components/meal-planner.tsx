@@ -184,9 +184,9 @@ export function MealPlanner() {
             </div>
 
             {/* Calendar Grid */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 gap-4 w-full max-w-full">
               {weekDays.map(day => (
-                <div key={day.date} className="space-y-3">
+                <div key={day.date} className="space-y-3 min-w-0 max-w-full overflow-hidden">;
                   {/* Day Header */}
                   <div className={`text-center p-3 rounded-lg ${
                     day.isToday ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-50'
@@ -202,7 +202,7 @@ export function MealPlanner() {
                       
                       return (
                         <div key={mealType}>
-                          <div className="text-xs font-medium text-gray-500 mb-1 capitalize">
+                          <div className="text-xs font-medium text-gray-500 mb-1 capitalize truncate">
                             {mealType}
                           </div>
                           <Droppable droppableId={`calendar-${day.date}-${mealType}`}>
@@ -210,7 +210,7 @@ export function MealPlanner() {
                               <div
                                 {...provided.droppableProps}
                                 ref={provided.innerRef}
-                                className={`min-h-[60px] rounded-lg border-2 border-dashed transition-colors ${
+                                className={`min-h-[60px] rounded-lg border-2 border-dashed transition-colors w-full overflow-hidden ${
                                   snapshot.isDraggingOver
                                     ? 'border-emerald-400 bg-emerald-50'
                                     : 'border-gray-200'
@@ -236,24 +236,24 @@ export function MealPlanner() {
                                             snapshot.isDragging ? 'shadow-lg' : ''
                                           }`}
                                         >
-                                          <Card className="cursor-grab">
-                                            <CardContent className="p-2">
-                                              <div className="flex items-center justify-between">
-                                                <div className="flex items-center gap-2">
+                                          <Card className="cursor-grab w-full">
+                                            <CardContent className="p-2 w-full overflow-hidden">
+                                              <div className="flex items-center justify-between min-w-0 w-full">
+                                                <div className="flex items-center gap-2 min-w-0 flex-1">
                                                   {calendarMeal.meal.imageUrl ? (
-                                                    <div className="w-8 h-8 rounded bg-gradient-to-br from-orange-50 to-red-50 border border-orange-100 flex items-center justify-center">
+                                                    <div className="w-8 h-8 rounded bg-gradient-to-br from-orange-50 to-red-50 border border-orange-100 flex items-center justify-center flex-shrink-0">
                                                       <span className="text-lg">{calendarMeal.meal.imageUrl}</span>
                                                     </div>
                                                   ) : (
-                                                    <div className="w-8 h-8 rounded bg-gray-200 flex items-center justify-center">
+                                                    <div className="w-8 h-8 rounded bg-gray-200 flex items-center justify-center flex-shrink-0">
                                                       <ChefHat className="w-4 h-4 text-gray-400" />
                                                     </div>
                                                   )}
-                                                  <div className="min-w-0">
+                                                  <div className="min-w-0 flex-1">
                                                     <div className="text-xs font-semibold truncate">
                                                       {calendarMeal.meal.name}
                                                     </div>
-                                                    <div className="text-xs text-gray-500">
+                                                    <div className="text-xs text-gray-500 truncate">
                                                       Serves {calendarMeal.servingSize}
                                                     </div>
                                                   </div>
@@ -261,7 +261,7 @@ export function MealPlanner() {
                                                 <Button
                                                   variant="ghost"
                                                   size="sm"
-                                                  className="h-6 w-6 p-0 text-gray-400 hover:text-red-600"
+                                                  className="h-6 w-6 p-0 text-gray-400 hover:text-red-600 flex-shrink-0"
                                                   onClick={(e) => {
                                                     e.stopPropagation();
                                                     removeMeal(calendarMeal.id);
